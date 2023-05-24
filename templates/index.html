@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Execute Function</title>
+    <style>
+      * {
+        font-family: sans-serif;
+      }
+      body {
+        font-family: Arial;
+        background-color: black;
+      }
+
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        margin-top: 30px;
+      }
+
+      .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+      }
+      .tab button:hover {
+        background-color: white;
+      }
+
+ 
+      .tab button.active {
+        background-color: #ccc;
+      }
+
+
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+      }
+
+
+      @-webkit-keyframes fadeEffect {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeEffect {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      input[type='button'],
+      input[type='submit'],
+      input[type='reset'] {
+        background-color: #04aa6d;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+      textarea {
+        width: 45%;
+        height: 497px;
+        resize: none;
+        background-color: black;
+        border: 1px solid white;
+        color: white;
+        margin-right: 15px;
+        margin-top: 20px;
+        font-size: 20px;
+      }
+
+      .container {
+        width: 45%;
+        height: 500px;
+        border: 1px solid white;
+        margin: 0px;
+        position: relative;
+        font-size: 20px;
+        display: inline-block;
+        margin-left: 110px;
+        margin-top: 20px;
+        color: #fff;
+        position: fixed;
+      }
+      p .container {
+        font-size: 20px;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .upload-btn {
+        margin-right: 10px;
+      }
+      .topnav {
+        overflow: hidden;
+        background-color: #333;
+        height: 90px;
+        color: white;
+      }
+
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .topnav a.active {
+        background-color: #04aa6d;
+        color: white;
+      }
+      .b2 {
+        margin-left: 0px;
+        margin-top: 100px;
+        border: none;
+      }
+      ::placeholder {
+        color: white;
+      }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="topnav">
+      <h1 style="text-align: center">TEXT ANALYSER</h1>
+    </div>
+    <div class="tab">
+      <button class="tablinks" id="btn1" onclick="callPythonFunction(1)">
+        Plagiarism
+      </button>
+      <button class="tablinks" id="btn2" onclick="callPythonFunction(2)">
+        Paraphraser
+      </button>
+      <button class="tablinks" id="btn3" onclick="callPythonFunction(3)">
+        Summarizer
+      </button>
+    </div>
+
+    <form action="/execute_function" method="POST" id="myForm">
+      <textarea
+        id="text1"
+        name="text1"
+        placeholder="Type your text here..."
+      ></textarea>
+
+      <div class="container">
+        <p>Output</p>
+      </div>
+      <br />
+      <br />
+
+      <input style="color: white" type="file" id="myFile" name="filename" />
+      <input type="hidden" name="function_name" id="functionName" value="" />
+      <input type="submit" class="b2">Submit</input>
+    </form>
+
+    <script>
+      $(document).ready(function () {
+        $('#btn1').click(function () {
+          $('#functionName').val('function1');
+        });
+
+        $('#btn2').click(function () {
+          $('#functionName').val('function2');
+        });
+        $('#btn3').click(function() {
+          $('#functionName').val("function3");
+      });
+      });
+    </script>
+  </body>
+</html>
