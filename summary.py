@@ -2,9 +2,9 @@ import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
 from heapq import nlargest
-nlp = spacy.load('en_core_web_sm')
 punctuation = punctuation + '\n'
 def sum(text):
+    nlp = spacy.load('en_core_web_sm')
     stopwords = list(STOP_WORDS)
     doc = nlp(text)
     tokens = [token.text for token in doc]
@@ -33,3 +33,8 @@ def sum(text):
     final_summary = [word.text for word in summary]
     summary = ' '.join(final_summary)
     return summary
+
+# Tokenize the text with the SpaCy pipeline. This segments the text into words, punctuation, and so on, using grammatical rules specific to the English language. 
+# Count the number of times a word is used (not including stop words or punctuation), then normalize the count. A word that’s used more frequently has a higher normalized count.
+# Calculate the sum of the normalized count for each sentence.
+# Extract a percentage of the highest ranked sentences. These serve as our summary.
