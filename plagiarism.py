@@ -2,24 +2,44 @@ import os
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import docx2txt
+from nltk.corpus import stopwords 
 
 def plag(text):
+    
+    stop_words = set(stopwords.words("english"))
+    remtext = []
+    for i in text.split(" "):
+        if(i not in stop_words):
+            remtext.append(i)
+    textex = ' '.join(remtext)
+
     folder_name = "plag_files"
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
     input_file_path = os.path.join(folder_name, "input.txt")
     with open(input_file_path, "w") as text_file:
-        text_file.write(text)
+        text_file.write(textex)
     student_files = [os.path.join(folder_name, doc) for doc in os.listdir(folder_name) if doc.endswith(".txt")]
     file_content = [open(_file, encoding='utf8').read() for _file in student_files]
 
+    merge =[]
+
+    file_content_updated = []
+    for i in file_content:
+        for j in i.split(' '):
+            if(j not in stop_words):
+                merge.append(j)
+        txt = ' '.join(merge)
+        file_content_updated.append(txt)
+        merge = []
+    print(file_content_updated)
     def vectorize(text):
         return TfidfVectorizer().fit_transform(text).toarray()
 
     def similarity(doc1, doc2):
         return cosine_similarity([doc1], [doc2])[0][0]
 
-    vectors = vectorize(file_content)
+    vectors = vectorize(file_content_updated)
     s_vectors = list(zip(student_files, vectors))
 
     plagiarism_res = set()
