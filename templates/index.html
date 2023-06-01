@@ -76,7 +76,7 @@
       }
       textarea {
         width: 45%;
-        height: 497px;
+        height: 407px;
         resize: none;
         background-color: black;
         border: 1px solid white;
@@ -84,11 +84,12 @@
         margin-right: 15px;
         margin-top: 20px;
         font-size: 20px;
+        padding-top: 15px;
       }
 
       .container {
         width: 45%;
-        height: 500px;
+        height: 425px;
         border: 1px solid white;
         margin: 0px;
         position: relative;
@@ -99,6 +100,11 @@
         color: #fff;
         position: fixed;
       }
+      .tabsco{overflow: scroll;overflow-y: scroll;overflow-x: hidden;overflow-y: auto;}
+
+.tabsco::-webkit-scrollbar{
+  display: none;
+}
       p .container {
         font-size: 20px;
       }
@@ -170,9 +176,10 @@
         id="text1"
         name="text1"
         placeholder="Type your text here..."
+        class="tabsco"
       ></textarea>
 
-      <div class="container">
+      <div class="container tabsco">
         <p>Your output will be displayed here</p>
       </div>
       <br />

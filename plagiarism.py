@@ -1,7 +1,7 @@
 import os
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import docx2txt
+# import docx2txt
 from nltk.corpus import stopwords 
 
 def plag(text):
