@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from test import *
+from test import puraj
 from summary import *
 from plagiarism import *
 
@@ -23,18 +23,39 @@ def execute_function():
 
     if function_name == 'function1':
         text=plag(text)
-        text="plagiarism value = "+ str(text)
-        return render_template("about.html",x=text,y=ct)
+        tem=""
+        plagval=round(text[0]*100,2)
+        if plagval>20:
+            tem=puraj(ct)
+            text="plagiarism value = "+str(plagval)+"\nplagiarised file=" + str(text[1])+"\nplagiarised text=" + str(text[2])+"\nparaphrased text = "+ str(tem)
+            return render_template("about.html",x=text,y=ct)
+        else:
+            text="plagiarism value = "+str(plagval)+"\nplagiarised file=" + str(text[1])+"\nplagiarised text=" + str(text[2])
+
+            return render_template("about.html",x=text,y=ct)
+
+
+
+
     elif function_name == 'function2':
-        text=paraphrase_sentence(text)
+        text=puraj(text)
+        print(text)
         return render_template("about.html",x=text,y=ct)
     elif function_name == 'function3':
-        text=sum(text)
+        text=summary(text)
+        text = text.replace("<n>", "")
         return render_template("about.html",x=text,y=ct)
     else:
         text=plag(text)
-        text="plagiarism value = "+ str(text)
-        return render_template("about.html",x=text,y=ct)
+        tem=""
+        plagval=round(text[0]*100,2)
+        if plagval>20:
+            tem=puraj(ct)
+            text="plagiarism value = "+str(plagval)+"\nplagiarised file=" + str(text[1])+"\nplagiarised text=" + str(text[2])+"\nparaphrased text = "+ str(tem)
+            return render_template("about.html",x=text,y=ct)
+        else:
+            text="plagiarism value = "+str(plagval)+"\nplagiarised file=" + str(text[1])+"\nplagiarised text=" + str(text[2])
 
+            return render_template("about.html",x=text,y=ct)
 if __name__ == '__main__':
     app.run()

@@ -1,7 +1,12 @@
 import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
+from transformers import pipeline
 from string import punctuation
 from heapq import nlargest
+from transformers import PegasusForConditionalGeneration, AutoTokenizer
+import torch
+import re
+
 punctuation = punctuation + '\n'
 def sum(text):
     nlp = spacy.load('en_core_web_sm')
@@ -32,9 +37,34 @@ def sum(text):
     summary = nlargest(select_length, sentence_scores, key = sentence_scores.get)
     final_summary = [word.text for word in summary]
     summary = ' '.join(final_summary)
-    return summary
+    return(summary)
+    
+def pegtor(text):
+    model_name = 'google/pegasus-cnn_dailymail'
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = PegasusForConditionalGeneration.from_pretrained(model_name).to(device)
+    batch = tokenizer(text, truncation=True, padding='longest', return_tensors="pt").to(device)
+    translated = model.generate(**batch)
+    tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
+    return(tgt_text[0])
 
-# Tokenize the text with the SpaCy pipeline. This segments the text into words, punctuation, and so on, using grammatical rules specific to the English language. 
-# Count the number of times a word is used (not including stop words or punctuation), then normalize the count. A word that’s used more frequently has a higher normalized count.
-# Calculate the sum of the normalized count for each sentence.
-# Extract a percentage of the highest ranked sentences. These serve as our summary.
+
+def piptrans(text):
+    summarizer = pipeline("summarization")
+    t3=summarizer(text, max_length=130, min_length=100, do_sample=False)
+    return t3[0]['summary_text']
+
+def summary(txt):
+    l = re.split(r'(?<=[^A-Z].[.?]) +(?=[A-Z])', txt)
+
+    c=len(l)
+    p=q=r=""
+    for i in l[0:c//3]:
+        p=p+i
+    for i in l[(c//3) :2*c//3]:
+        q=q+i
+    for i in l[2*c//3:c]:
+        r=r+i
+    
+    return(sum(p)+piptrans(q)+pegtor(r))
