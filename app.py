@@ -38,7 +38,7 @@ def execute_function():
 
 
     elif function_name == 'function2':
-        text=puraj(text)
+        text=puraj(ct)
         print(text)
         return render_template("about.html",x=text,y=ct)
     elif function_name == 'function3':

@@ -6,6 +6,7 @@ from difflib import SequenceMatcher
 import sys
 
 def plag(text):
+    print("Plag file ",text)
     stop_words = set(stopwords.words("english"))
     remtext = []
     for i in text.split(" "):

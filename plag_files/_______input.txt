@@ -1,1 +1,3 @@
-The application vector space retrieval, traditional IR concept, field content similarity detection represented bag words analysis. For pair wise similarity calculations, documents represented one vectors, e.g., various document portions. The standard cosine similarity measure advanced similarity measures may used similarity computation.
+    Approaches:
+    - Local Similarity Approach: Local techniques look pre-selected text segments input.
+    - Global Similarity Approach: Global Similarity Assessment approaches incorporate features gathered bigger portions text document compute similarity.
