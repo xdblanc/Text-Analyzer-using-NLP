@@ -78,6 +78,7 @@ def puraj(input):
 
 
     def find_similar_synonyms(word):
+
         synonyms = []
         
         # Retrieve synsets for the word
@@ -107,6 +108,7 @@ def puraj(input):
         
             xx=word.lower()
             synonym2 = find_similar_synonyms(word)
+            print(synonym2)
             if xx in stop_words or len(synonym2) < 3:
                 res+=word+' '
                 continue
